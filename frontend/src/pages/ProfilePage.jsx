@@ -64,6 +64,7 @@ const ProfilePage = () => {
               {isUpdatingProfile ? "Uploading..." : "Click the camera icon to update your photo"}
             </p>
           </div>
+
           <div className="space-y-6">
             <div className="space-y-1.5">
               <div className="text-sm text-zinc-400 flex items-center gap-2">
@@ -80,7 +81,9 @@ const ProfilePage = () => {
               </div>
               <p className="px-4 py-2.5 bg-base-200 rounded-lg border">{authUser?.email}</p>
             </div>
-            <div className="mt-6 bg-base-300 rounded-xl p-6">
+          </div>
+
+          <div className="mt-6 bg-base-300 rounded-xl p-6">
             <h2 className="text-lg font-medium  mb-4">Account Information</h2>
             <div className="space-y-3 text-sm">
               <div className="flex items-center justify-between py-2 border-b border-zinc-700">
@@ -93,11 +96,9 @@ const ProfilePage = () => {
               </div>
             </div>
           </div>
-          </div>
         </div>
       </div>
     </div>
   );
-}
-
+};
 export default ProfilePage;
