@@ -43,9 +43,16 @@ export const signup =  async (req, res) => {
 };
 
 export const login = async (req, res) => {
-    const { email, password } = req.body;
+    const { identifier, password } = req.body;
+    
     try {
-        const user = await User.findOne({ email });
+        // Chercher l'utilisateur par email ou fullname
+        const user = await User.findOne({
+            $or: [
+                { email: identifier },
+                { fullName: identifier }
+            ]
+        });
 
         if (!user) {
             return res.status(400).json({ message: "Invalid credentials" });
@@ -56,19 +63,20 @@ export const login = async (req, res) => {
             return res.status(400).json({ message: "Invalid credentials" });
         }
 
-        generateToken(user._id, res)
+        generateToken(user._id, res);
 
         res.status(200).json({
             _id: user._id,
             email: user.email,
             fullName: user.fullName,
             profilePic: user.profilePic
-        })
+        });
     } catch (error) {
         console.log("Error in login controller", error.message);
         res.status(500).json({ message: "Internal error" });
     }
 };
+
 
 export const logout = (req, res) => {
     try {
