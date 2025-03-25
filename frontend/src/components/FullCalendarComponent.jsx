@@ -4,7 +4,7 @@ import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import listPlugin from '@fullcalendar/list';
 import interactionPlugin from '@fullcalendar/interaction';
-import { useThemeStore } from '../store/useThemeStore'; // Adaptez selon votre structureus allons créer ce fichier pour les styles personnalisés
+import { useThemeStore } from '../store/useThemeStore';
 import './FullCalendar.css'
 
 const FullCalendarComponent = ({ events: initialEvents = [] }) => {

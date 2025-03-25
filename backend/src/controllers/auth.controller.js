@@ -92,22 +92,52 @@ export const logout = (req, res) => {
 
 export const updateProfile = async (req, res) => {
     try {
-        const {profilePic} = req.body;
+        const { profilePic, fullName, email } = req.body;
         const userId = req.user._id;
 
-        if (!profilePic) {
-            return res.status(400).json({ message: "Profile picture is required" });
+        // Créer l'objet de mise à jour avec les champs fournis
+        const updateFields = {};
+        
+        // Traitement de la photo de profil si elle est fournie
+        if (profilePic) {
+            const uploadResponse = await cloudinary.uploader.upload(profilePic);
+            updateFields.profilePic = uploadResponse.secure_url;
+        }
+        
+        // Ajout du nom complet s'il est fourni
+        if (fullName !== undefined) {
+            updateFields.fullName = fullName;
+        }
+        
+        // Traitement de l'email s'il est fourni
+        if (email !== undefined) {
+            // Vérifier si l'email est déjà utilisé par un autre utilisateur
+            const existingUser = await User.findOne({ email, _id: { $ne: userId } });
+            if (existingUser) {
+                return res.status(400).json({ message: "Email already in use by another account" });
+            }
+            updateFields.email = email;
         }
 
-        const uploadResponse = await cloudinary.uploader.upload(profilePic);
-        const updatedUser = await User.findByIdAndUpdate(userId, { profilePic: uploadResponse.secure_url }, { new: true });
+        // Vérifier si nous avons des champs à mettre à jour
+        if (Object.keys(updateFields).length === 0) {
+            return res.status(400).json({ message: "No fields to update provided" });
+        }
 
-        res.status(200).json({updatedUser});
+        // Mise à jour de l'utilisateur avec tous les champs fournis
+        const updatedUser = await User.findByIdAndUpdate(
+            userId, 
+            updateFields, 
+            { new: true }
+        ).select("-password"); // Exclure le mot de passe de la réponse
+
+        res.status(200).json(updatedUser);
     } catch (error) {
         console.log("Error in updateProfile controller", error.message);
         res.status(500).json({ message: "Internal error" });
     }
 };
+
 
 export const checkAuth = (req, res) => {
     try {
