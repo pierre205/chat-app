@@ -64,7 +64,8 @@ const ProfilePage = () => {
               {isUpdatingProfile ? "Uploading..." : "Click the camera icon to update your photo"}
             </p>
           </div>
-
+          
+          {/* TODO: Autoriser modification email and full name */}  
           <div className="space-y-6">
             <div className="space-y-1.5">
               <div className="text-sm text-zinc-400 flex items-center gap-2">
