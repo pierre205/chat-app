@@ -5,7 +5,6 @@
 - 🔒 Authentification Sécurisée - Système d'authentification et d'autorisation basé sur JWT
 - 💬 Messagerie en Temps Réel - Fonctionnalité de chat instantané propulsée par Socket.io
 - 👥 Statut en Ligne - Voir quels utilisateurs sont actuellement en ligne
-- 📝 Indicateurs de Frappe - Savoir quand quelqu'un est en train d'écrire un message
 - 📅 Intégration de Calendrier - Planifiez des événements et réunions avec FullCalendar
 - 🖼️ Partage de Médias - Partagez des images et fichiers avec l'intégration Cloudinary
 - 📱 Design Responsive - Interface utilisateur élégante avec Tailwind CSS et Daisy UI
