@@ -8,30 +8,21 @@ import { useThemeStore } from '../store/useThemeStore';
 import './FullCalendar.css'
 
 const FullCalendarComponent = ({ events: initialEvents = [] }) => {
-  // État pour gérer les événements
+
   const [events, setEvents] = useState(initialEvents);
   const [currentView, setCurrentView] = useState('dayGridMonth');
   const { theme } = useThemeStore();
-  
-  // Référence au calendrier pour accéder à ses méthodes
   const calendarRef = useRef(null);
   
-  // Options de palette de couleurs selon le thème actuel
   const themeColors = {
-    // Couleurs adaptées à différents thèmes DaisyUI
     default: ['#3b82f6', '#10b981', '#f59e0b', '#ef4444', '#8b5cf6'],
     dark: ['#60a5fa', '#34d399', '#fbbf24', '#f87171', '#a78bfa'],
     coffee: ['#dbbc9a', '#b58c6e', '#8c5e45', '#5c3c29', '#3a2419'],
     synthwave: ['#e779c1', '#58c7f3', '#f3cc30', '#f34e5c', '#9e62e3'],
-    // Ajoutez d'autres thèmes selon vos besoins
   };
-  
-  // Sélection de la palette selon le thème actuel
   const getColorPalette = () => {
     return themeColors[theme] || themeColors.default;
   };
-  
-  // Attribution d'une couleur à un nouvel événement
   const getRandomColor = () => {
     const palette = getColorPalette();
     return palette[Math.floor(Math.random() * palette.length)];
